@@ -1,0 +1,48 @@
+﻿@page
+@model DC2.UI.Pages.Product.AddProductModel
+@{
+    if (User.Identity.IsAuthenticated)
+    {
+        Layout = "_LayoutLogedIn";
+    }
+}
+
+<center>
+    <h1>Add Product</h1>
+    <br>
+</center>
+
+<form asp-page-handler="Save">
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" asp-for="CurrentProduct.Name" placeholder="Enter Name">
+        <span class="text-danger" asp-validation-for="CurrentProduct.Name"></span>
+    </div>
+    <div class="form-group">
+        <label for="description">Description</label>
+        <input type="text" class="form-control" asp-for="CurrentProduct.Description" placeholder="Enter Description">
+        <span class="text-danger" asp-validation-for="CurrentProduct.Description"></span>
+    </div>
+    <div class="form-group">
+        <label for="sku">SKU</label>
+        <input type="text" class="form-control" asp-for="CurrentProduct.Sku" placeholder="Enter SKU">
+        <span class="text-danger" asp-validation-for="CurrentProduct.Sku"></span>
+    </div>
+    <div class="form-group">
+        <label for="category">Category</label>
+        <input type="text" class="form-control" asp-for="CurrentProduct.Category" placeholder="Enter Category">
+        <span class="text-danger" asp-validation-for="CurrentProduct.Category"></span>
+    </div>
+    <div class="form-group">
+        <label for="price">Price</label>
+        <input type="text" class="form-control" asp-for="CurrentProduct.Price" placeholder="Enter Price">
+        <span class="text-danger" asp-validation-for="CurrentProduct.Price"></span>
+    </div>
+
+    @*<div class="form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">I accept all cookies on this website</label>
+        </div>*@
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a asp-page="./Index" class="btn btn-primary">Back</a>
+</form>

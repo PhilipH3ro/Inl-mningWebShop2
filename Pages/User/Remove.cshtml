@@ -1,0 +1,8 @@
+﻿@page
+@model DC2.UI.Pages.User.RemoveModel
+@{
+        if (User.Identity.IsAuthenticated)
+    {
+        Layout = "_LayoutLogedIn";
+    }
+}

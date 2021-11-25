@@ -1,0 +1,92 @@
+﻿@page
+
+@model DC2.UI.Pages.Product.ProductModel
+@{
+    if (User.Identity.IsAuthenticated)
+    {
+        Layout = "_LayoutLogedIn";
+    }
+}
+
+
+<center>
+    <h1>Products</h1>
+    <h1>--------------------------------------------</h1>
+    <a asp-page="./Add" class="btn btn-primary">Add New</a>
+    <br>
+    <br>
+
+    <form asp-page-handler="Search">
+        <div class="d-flex">
+            <div class="input-group">
+                <input class="form-control" placeholder="Search for specific product" asp-for="SearchTmp" />
+                <br />
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <form asp-page-handler="SortPriceAsc" method="post">
+        <button type="submit" class="btn btn-primary">Sort Lowest Price</button>
+    </form>
+    <form asp-page-handler="SortPriceDes" method="post">
+        <button type="submit" class="btn btn-primary">Sort Highest Price</button>
+    </form>
+    <form asp-page-handler="SortCategory" method="post">
+        <button type="submit" class="btn btn-primary">Sort Category(404)</button>
+    </form>
+</center>
+<br>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">SKU</th>
+            <th scope="col">Category</th>
+            <th scope="col">Price</th>
+            <th scope="col">Edit/Remove</th>
+        </tr>
+    </thead>
+    @foreach (var cust in @Model.Products)
+    {
+        <form asp-page-handler="Edit">
+            <input type="hidden" asp-for="Id" value="@cust.ProductId" />
+        <tbody>
+            <tr>
+                <td>@cust.ProductId</td>
+                <td>@cust.Name</td>
+                <td>@cust.Description</td>
+                <td>@cust.Sku</td>
+                <td>@cust.Category</td>
+                <td>@cust.Price</td>
+                <td>
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-primary" asp-page-handler="Edit"><i class="fas fa-user-edit"></i></button>
+                        <button type="submit" class="btn btn-primary" asp-page-handler="Remove"><i class="far fa-trash-alt"></i></button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+        </form>
+    }
+</table>
+
+@*@foreach (var cust2 in @Model.CurrentUser)
+    {
+        <form asp-page-handler="Edit">
+            <input type="hidden" asp-for="Id" value="@cust2.Id" />
+            <tbody>
+                <tr>
+                    <td>@cust2.Id</td>
+                    <td>@cust2.AccountName</td>
+                    <td>@cust2.FirstName</td>
+                    <td>@cust2.LastName</td>
+                    <td>@cust2.Email</td>
+                    <td>@cust2.PhoneNumber</td>
+                </tr>
+            </tbody>
+        </form>
+    }*@

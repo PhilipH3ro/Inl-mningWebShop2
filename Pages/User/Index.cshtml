@@ -1,0 +1,56 @@
+﻿@page
+@model DC2.UI.Pages.User.UserModel
+@{
+        if (User.Identity.IsAuthenticated)
+    {
+        Layout = "_LayoutLogedIn";
+    }
+}
+
+<center>
+    <h1>Users</h1>
+    <h1>--------------------------------------------</h1>
+    @*<img src="https://www.quasa.io/storage/images/news/qVTsdkRinnWjvGBTd6fNdAviGYPGL5QBKbci3vGC.jpg" style="width:50%;"/>*@
+    <br>
+    <a asp-page="./Add" class="btn btn-primary">Add New</a>
+</center>
+<br>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">UserId</th>
+            <th scope="col">User Name</th>
+            <th scope="col">Password</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Email</th>
+            <th scope="col">Phone</th>
+            <th scope="col">View/Edit/Remove</th>
+        </tr>
+    </thead>
+    @foreach (var cust in @Model.Users)
+    {
+        <form asp-page-handler="Edit">
+            <input type="hidden" asp-for="Id" value="@cust.UserId">
+        <tbody>
+            <tr>
+                <td>@cust.UserId</td>
+                <td>@cust.UserName</td>
+                <td>@cust.Password</td>
+                <td>@cust.FirstName</td>
+                <td>@cust.LastName</td>
+                <td>@cust.Email</td>
+                <td>@cust.PhoneNumber</td>
+                <td>
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-primary" asp-page-handler="View"><i class="fas fa-user-alt"></i></button>
+                        <button type="submit" class="btn btn-primary" asp-page-handler="Edit"><i class="fas fa-user-edit"></i></button>
+                        <button type="submit" class="btn btn-primary" asp-page-handler="Remove"><i class="far fa-trash-alt"></i></button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+        </form>
+    }
+</table>

@@ -1,0 +1,15 @@
+﻿@page
+@model DC2.UI.Pages.User._404Model
+@{
+        if (User.Identity.IsAuthenticated)
+    {
+        Layout = "_LayoutLogedIn";
+    }
+}
+
+<center>
+    <h1>404 Page not found</h1>
+    <h3>Här har du veckans kupong istället</h3>
+    <br>
+    <img src="https://nouwcdn.com/v308/u/747/805747/552/202103291550407959.jpg?version=202007" />
+</center>

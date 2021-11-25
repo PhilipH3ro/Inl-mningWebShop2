@@ -1,0 +1,9 @@
+﻿@page "{id}"
+@model DC2.UI.Pages.Order.PaidModel
+@{
+    if (User.Identity.IsAuthenticated)
+    {
+        Layout = "_LayoutLogedIn";
+    }
+}
+<h1>Test</h1>

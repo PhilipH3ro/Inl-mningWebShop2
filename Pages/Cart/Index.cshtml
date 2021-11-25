@@ -1,0 +1,162 @@
+﻿@page "{id}"
+@model DC2.UI.Pages.Cart.CartModel
+@{
+    if (User.Identity.IsAuthenticated)
+    {
+        Layout = "_LayoutLogedIn";
+    }
+}
+
+<center>
+    <h1>Cart</h1>
+    <h1>--------------------------------------------</h1>
+    @*<h5>Current UserId: @Model.CurrentUser.UserId</h5>
+    <h5>Current UserName: @Model.CurrentUser.UserName</h5>
+    Model.Products[item.ProductId].Price
+    <h1>@Model.Users[Model.CurrentUser.UserId].UserId</h1>*@
+    <br>
+</center>
+<div class="left">
+    <form asp-page-handler="Search">
+        <div class="d-flex">
+            <div class="input-group">
+                <input class="form-control" placeholder="Search for specific product" asp-for="SearchTmp" />
+                <br />
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <form asp-page-handler="SortPriceAsc" method="post">
+        <button type="submit" class="btn btn-primary">Sort Lowest Price</button>
+    </form>
+    <form asp-page-handler="SortPriceDes" method="post">
+        <button type="submit" class="btn btn-primary">Sort Highest Price</button>
+    </form>
+    <form asp-page-handler="SortCategory" method="post">
+        <button type="submit" class="btn btn-primary">Sort Category(404)</button>
+    </form>
+    <table class="table">
+        <thead>
+            <tr>
+                @*<th scope="col">ProductId</th>*@
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Sku</th>
+                <th scope="col">Category</th>
+                <th scope="col">Price</th>
+                <th scope="col">Buy</th>
+            </tr>
+        </thead>
+        @foreach (var cust in @Model.Products)
+        {
+            <form asp-page-handler="Add">
+                <input type="hidden" asp-for="Id" value="@cust.ProductId"/>
+            <tbody>
+                <tr>
+                    @*<td>@cust.ProductId</td>*@
+                    <td>@cust.Name</td>
+                    <td>@cust.Description</td>
+                    <td>@cust.Sku</td>
+                    <td>@cust.Category</td>
+                    <td>@cust.Price</td>
+                    <td>
+                        <div class="btn-group">
+                            <button type="submit" class="btn btn-primary" asp-page-handler="Add"><i class="fas fa-plus-square"></i></button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+            </form>
+        }
+    </table>
+</div>
+<div class="right">
+    <table class="table">
+        <thead>
+            <tr>
+                @*<th scope="col">CartId</th>*@
+                <th scope="col">Name</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Price</th>
+                <th scope="col">Remove</th>
+            </tr>
+        </thead>
+
+        @foreach (var item in Model.Carts)
+        {
+            var matchcurrentuserid = Model.CurrentUser.UserId;
+            var matchproductid = Model.CurrentProduct.ProductId;
+            if (item.CartId == matchcurrentuserid)
+            {
+                <form asp-page-handler="Remove">
+                    <input type="hidden" asp-for="Id" value="@item.CartId" />
+                    <input type="hidden" asp-for="ProductId" value="@item.ProductId" />
+                <tbody>
+                    <tr>
+                        @*<td>@item.CartId</td>*@
+                        <td>@Model.Products[item.ProductId].Name</td>
+                        <td>@item.Quantity</td>
+                        <td>@Model.Products[item.ProductId].Price</td>
+                        <td>
+                            <div class="btn-group">
+                                <button type="submit" class="btn btn-primary" asp-page-handler="Remove"><i class="far fa-trash-alt"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+                </form>
+            }
+            else
+            {
+
+            }
+        }
+    </table>
+    @{int sum = 0;}
+    @foreach (var item in Model.Carts)
+    {
+        var matchcurrentuserid = Model.CurrentUser.UserId;
+        var matchproductid = Model.CurrentProduct.ProductId;
+        if (item.CartId == matchcurrentuserid)
+        {
+            sum += Model.Products[item.ProductId].Price * item.Quantity;
+        }
+
+    }
+<center>
+    @*@foreach (var item in Model.Carts)
+        {
+            <form asp-page-handler="Order">
+                <input type="hidden" asp-for="Id" value="@Model.Carts[item.CartId].CartId" />
+                <tbody>
+                    <div class="btn-group">
+                        <p>@Model.Carts[item.CartId].CartId</p>
+                        <button type="submit" class="btn btn-primary" asp-page-handler="Order">Go to Order</button>
+                    </div>
+                </tbody>
+            </form>
+        }*@
+
+    <p>@Model.CurrentUser.UserId</p>
+    <p>Cart Id: @Model.CurrentUser.UserId - Total Price: @sum Kr</p>
+    <form asp-page-handler="Pay">
+        <input type="hidden" asp-for="Id" value="@Model.CurrentUser.UserId"/>
+        <tbody>
+            <div class="btn-group">
+                <button type="submit" class="btn btn-primary" asp-page-handler="Pay">Pay</button>
+            </div>
+        </tbody>
+    </form>
+    <form asp-page-handler="Order">
+        <input type="hidden" asp-for="Id" value="@Model.CurrentUser.UserId"/>
+        <tbody>
+            <div class="btn-group">
+                <button type="submit" class="btn btn-primary" asp-page-handler="Order">Go to Order</button>
+            </div>
+        </tbody>
+    </form>
+</center>
+    <br>
+</div>

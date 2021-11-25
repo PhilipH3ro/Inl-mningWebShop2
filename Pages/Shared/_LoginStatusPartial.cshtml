@@ -1,0 +1,32 @@
+﻿@if (User.Identity.IsAuthenticated)
+{
+    <style>
+        form {
+            display: inline;
+        }
+    </style>
+    <img style="height: 10%; width: 10%;" src="https://www.apple.com/ac/structured-data/images/knowledge_graph_logo.png?202111090811"/>
+    <form asp-page="/Account/Index" method="POST">
+        <input class="ml-2 btn btn-primary" type="submit" value="Account">
+    </form>
+
+    <form asp-page="/Account/Logout" method="POST">
+        <input class="ml-2 btn btn-primary" type="submit" value="Logout">
+    </form>
+}
+else
+{
+    <style>
+        form {
+            display: inline;
+        }
+    </style>
+    <form asp-page="/Account/Login" method="POST">
+        <input class="ml-2 btn btn-primary" type="submit" value="Login">
+    </form>
+
+    <form asp-page="/Account/Register" method="POST">
+        <input class="ml-2 btn btn-primary" type="submit" value="Register">
+    </form>
+
+}

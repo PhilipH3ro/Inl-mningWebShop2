@@ -1,0 +1,66 @@
+﻿@page "{id}"
+@model DC2.UI.Pages.User.EditModel
+@{
+    if (User.Identity.IsAuthenticated)
+    {
+        Layout = "_LayoutLogedIn";
+    }
+}
+
+<center>
+    <h1>Edit Current User</h1>
+    <br>
+</center>
+
+@*<div>@Model.CurrentUser.FirstName</div>
+    <form asp-page-handler="Save">
+    <input type="hidden" asp-for="CurrentUser.Id" value="@Model.CurrentUser.Id" />
+    <input type="text" asp-for="CurrentUser.UserName" value="@Model.CurrentUser.UserName" />
+    <input type="text" asp-for="CurrentUser.FirstName" value="@Model.CurrentUser.FirstName" />
+    <input type="text" asp-for="CurrentUser.LastName" value="@Model.CurrentUser.LastName" />
+    <input type="email" asp-for="CurrentUser.Email" value="@Model.CurrentUser.Email" />
+    <input type="text" asp-for="CurrentUser.PhoneNumber" value="@Model.CurrentUser.PhoneNumber" />
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+    </form>*@
+
+<form asp-page-handler="Save">
+    <input type="hidden" class="form-control" asp-for="CurrentUser.UserId" value="@Model.CurrentUser.UserId">
+    <div class="form-group">
+        <label for="username">User Name</label>
+        <input type="text" class="form-control" asp-for="CurrentUser.UserName" value="@Model.CurrentUser.UserName" placeholder="Enter User Name">
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="text" class="form-control" asp-for="CurrentUser.Password" value="@Model.CurrentUser.Password" placeholder="Enter Password">
+    </div>
+    <div class="form-group">
+        <label for="firstname">First Name</label>
+        <input type="text" class="form-control" asp-for="CurrentUser.FirstName" value="@Model.CurrentUser.FirstName" placeholder="Enter First Name">
+    </div>
+    <div class="form-group">
+        <label for="lastname">Last Name</label>
+        <input type="text" class="form-control" asp-for="CurrentUser.LastName" value="@Model.CurrentUser.LastName" placeholder="Enter Last Name">
+    </div>
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" asp-for="CurrentUser.Email" value="@Model.CurrentUser.Email" id="email" placeholder="Email">
+    </div>
+    <div class="form-group">
+        <label for="phonenumber">Phone Number</label>
+        <input type="text" class="form-control" asp-for="CurrentUser.PhoneNumber" value="@Model.CurrentUser.PhoneNumber" id="email" placeholder="Phone Number">
+    </div>
+    @*<div class="form-check">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+        <label class="form-check-label" for="exampleCheck1">I accept all cookies on this website</label>
+        </div>*@
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a asp-page="./Index" class="btn btn-primary">Back</a>
+</form>
+@*<h1>TEST</h1>
+    <h6>ID: @Model.CurrentUser.Id</h6>
+    <h6>Namn: @Model.CurrentUser.FirstName @Model.CurrentUser.LastName</h6>
+    <h6>Email: @Model.CurrentUser.Email</h6>
+    <h6>PhoneNumber: @Model.CurrentUser.PhoneNumber</h6>
+    <h6>Secret: @Model.CurrentUser.Secret</h6>*@

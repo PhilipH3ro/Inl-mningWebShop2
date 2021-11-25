@@ -1,0 +1,92 @@
+﻿@page "{id}"
+@model DC2.UI.Pages.Cart.PayModel
+@{
+    if (User.Identity.IsAuthenticated)
+    {
+        Layout = "_LayoutLogedIn";
+    }
+}
+
+<center>
+    <h1>Pay</h1>
+    <h1>--------------------------------------------</h1>
+    @*<h5>Current UserId: @Model.CurrentUser.UserId</h5>
+        <h5>Current UserName: @Model.CurrentUser.UserName</h5>*@
+    <h5>Current UserId: @Model.CurrentOrder.OrderId</h5>
+
+</center>
+
+<div class="middle">
+    <table class="table">
+        <thead>
+            <tr>
+                @*<th scope="col">CartId</th>*@
+                <th scope="col">Name</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Price</th>
+                <th scope="col">Remove</th>
+            </tr>
+        </thead>
+
+        @foreach (var item in Model.Carts)
+        {
+
+            var matchcurrentuserid = Model.CurrentUser.UserId;
+            var matchproductid = Model.CurrentProduct.ProductId;
+            if (item.CartId == matchcurrentuserid)
+            {
+                <form asp-page-handler="Remove">
+                    <input type="hidden" asp-for="Id" value="@item.CartId" />
+                <tbody>
+                    <tr>
+                        @*<td>@item.CartId</td>*@
+                        <td>@Model.Products[item.ProductId].Name</td>
+                        <td>@item.Quantity</td>
+                        <td>@Model.Products[item.ProductId].Price</td>
+                        <td>
+                            <div class="btn-group">
+                                <button type="submit" class="btn btn-primary" asp-page-handler="Remove"><i class="far fa-trash-alt"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+                </form>
+            }
+            else
+            {
+
+            }
+        }
+    </table>
+    @{int sum = 0;}
+    @foreach (var item in Model.Carts)
+    {
+        var matchcurrentuserid = Model.CurrentUser.UserId;
+        var matchproductid = Model.CurrentProduct.ProductId;
+        if (item.CartId == matchcurrentuserid)
+        {
+            sum += Model.Products[item.ProductId].Price * item.Quantity;
+        }
+
+    }
+    <center>
+        <p>Cart Id: @Model.CurrentUser.UserId - Total Price: @sum Kr</p>
+        <form asp-page-handler="Pay">
+            <input type="hidden" asp-for="Id" value="@Model.Carts[Model.CurrentUser.UserId].CartId" />
+            <tbody>
+                <div class="btn-group">
+                    <button type="submit" class="btn btn-primary" asp-page-handler="Pay">Pay</button>
+                </div>
+            </tbody>
+        </form>
+        <form asp-page-handler="Remove">
+            <input type="hidden" asp-for="Id" value="@Model.Carts[Model.CurrentUser.UserId].CartId" />
+            <tbody>
+                <div class="btn-group">
+                    <button type="submit" class="btn btn-primary" asp-page-handler="Remove">Remove</button>
+                </div>
+            </tbody>
+        </form>
+    </center>
+    <br>
+</div>

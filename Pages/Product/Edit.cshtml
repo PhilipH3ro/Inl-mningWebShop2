@@ -1,0 +1,63 @@
+﻿@page "{id:min(0)}"
+@model DC2.UI.Pages.Product.EditModel
+@{
+    if (User.Identity.IsAuthenticated)
+    {
+        Layout = "_LayoutLogedIn";
+    }
+}
+
+<center>
+    <h1>Edit Current Product</h1>
+    <br>
+</center>
+
+@*<div>@Model.CurrentUser.FirstName</div>
+    <form asp-page-handler="Save">
+    <input type="hidden" asp-for="CurrentUser.Id" value="@Model.CurrentUser.Id" />
+    <input type="text" asp-for="CurrentUser.FirstName" value="@Model.CurrentUser.FirstName" />
+    <input type="text" asp-for="CurrentUser.LastName" value="@Model.CurrentUser.LastName" />
+    <input type="email" asp-for="CurrentUser.Email" value="@Model.CurrentUser.Email" />
+    <input type="text" asp-for="CurrentUser.PhoneNumber" value="@Model.CurrentUser.PhoneNumber" />
+    <input type="text" asp-for="CurrentUser.Secret" value="@Model.CurrentUser.Secret" />
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+    </form>*@
+
+<form asp-page-handler="Save">
+    <input type="hidden" class="form-control" asp-for="CurrentProduct.ProductId" value="@Model.CurrentProduct.ProductId">
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" asp-for="CurrentProduct.Name" value="@Model.CurrentProduct.Name" placeholder="Enter Name">
+    </div>
+    <div class="form-group">
+        <label for="description">Description</label>
+        <input type="text" class="form-control" asp-for="CurrentProduct.Description" value="@Model.CurrentProduct.Description" placeholder="Enter Description">
+    </div>
+    <div class="form-group">
+        <label for="sku">SKU</label>
+        <input type="text" class="form-control" asp-for="CurrentProduct.Sku" value="@Model.CurrentProduct.Sku" placeholder="Enter SKU">
+    </div>
+    <div class="form-group">
+        <label for="category">Category</label>
+        <input type="text" class="form-control" asp-for="CurrentProduct.Category" value="@Model.CurrentProduct.Category" placeholder="Enter Category">
+    </div>
+    <div class="form-group">
+        <label for="price">Price</label>
+        <input type="text" class="form-control" asp-for="CurrentProduct.Price" value="@Model.CurrentProduct.Price" placeholder="Enter Price">
+    </div>
+
+    @*<div class="form-check">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+        <label class="form-check-label" for="exampleCheck1">I accept all cookies on this website</label>
+        </div>*@
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a asp-page="./Index" class="btn btn-primary">Back</a>
+</form>
+@*<h1>TEST</h1>
+    <h6>ID: @Model.CurrentUser.Id</h6>
+    <h6>Namn: @Model.CurrentUser.FirstName @Model.CurrentUser.LastName</h6>
+    <h6>Email: @Model.CurrentUser.Email</h6>
+    <h6>PhoneNumber: @Model.CurrentUser.PhoneNumber</h6>
+    <h6>Secret: @Model.CurrentUser.Secret</h6>*@
